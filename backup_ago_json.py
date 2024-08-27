@@ -80,7 +80,7 @@ class jsonItem:
         today = datetime.today().strftime("%Y_%m_%d")
         item_title = self.prim_wm_item.title.lower()
         self.filename = f"{today}_{item_title}_{self.primary_id}.json".replace(":", "-").replace('"', '').replace("|", "_").replace("/", "_").replace("\\", "_")
-        self.ostore_path = f'ago_backups/folder_name/{self.filename}'
+        self.ostore_path = f'ago_backups/{folder_name}/{self.filename}'
 
         try:
             s3_object = boto_resource.Object(bucket_name, self.ostore_path)
