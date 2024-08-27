@@ -1,0 +1,50 @@
+name: Backup AGO JSON
+
+on:
+  schedule:
+    - cron: '30 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Set up Conda environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: backup_env
+        python-version: 3.9
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        conda env update --file environment.yaml --name backup_env
+        conda env list
+        conda init bash
+        . ~/.bashrc
+        conda activate backup_env
+        
+    - name: Run script
+      shell: bash
+      env:
+        AGO_USER: ${{secrets.AGO_USER}}
+        AGO_PASS: ${{secrets.AGO_PASS}}
+        SIES_OBJ_STORE_USER: ${{secrets.OBJ_STORE_USER}}
+        OBJ_STORE_HOST: ${{secrets.OBJ_STORE_HOST}}
+        SIES_OBJ_STORE_API_KEY: ${{secrets.OBJ_STORE_API_KEY}}
+        OBJ_STORE_BUCKET: ${{secrets.OBJ_STORE_BUCKET}}
+        
+      run: |
+        # you may have to activate the environment before running the 
+        # python script, and you likley need to say python3 vs just python
+        conda init bash
+        . ~/.bashrc
+        conda activate backup_env
+        python3 badger_scripts/backup_ago_json.py
