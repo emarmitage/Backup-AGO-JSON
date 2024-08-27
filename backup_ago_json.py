@@ -73,15 +73,14 @@ boto_resource = boto3.resource(service_name='s3',
 class jsonItem:
     def __init__(self,primary_id):
         self.primary_id = primary_id
-        # self.folder = folder
         self.change_list = []
         self.prim_wm_item = gis.content.get(self.primary_id)
         self.prim_wm_json = self.prim_wm_item.get_data()
-    def json_backup(self): #backs up the json to the hardcoded path\
+    def json_backup(self, folder_name): #backs up the json to object storage
         today = datetime.today().strftime("%Y_%m_%d")
         item_title = self.prim_wm_item.title.lower()
         self.filename = f"{today}_{item_title}_{self.primary_id}.json".replace(":", "-").replace('"', '').replace("|", "_").replace("/", "_").replace("\\", "_")
-        self.ostore_path = f'ago_backups/{self.filename}'
+        self.ostore_path = f'ago_backups/folder_name/{self.filename}'
 
         try:
             s3_object = boto_resource.Object(bucket_name, self.ostore_path)
@@ -114,7 +113,7 @@ for username in maphub_accounts:
                 if result['type'] in backup_types:
                     print(f"backing up {in_id}")
                     item = jsonItem(in_id)
-                    item.json_backup()
+                    item.json_backup(folder_name=folder['title'])
 
 
             # # get list of items that match the criteria
