@@ -49,6 +49,8 @@ backup_types = ["Web Map", "Web Experience"]
 
 ago_folder_name = 'Badger Sightings Survey'
 
+retention_days = 7
+
 #%%
 # Credentials
 agol_username = os.environ['AGO_USER']
@@ -94,24 +96,43 @@ class jsonItem:
         except Exception as e:
             print(f"An error occurred: {e}")
 
+# Delete older backups
+def delete_old_backups(folder_title):
+    threshold_date = datetime.now() - timedelta(days=retention_days)
+    bucket = boto_resource.Bucket(bucket_name)
 
+    for obj in bucket.objects.filter(Prefix=f'ago_backups/{folder_title}'):
+        obj_last_modified = obj.last_modified
+        if obj_last_modified < threshold_date:
+            try:
+                obj.delete()
+                print(f"Deleted old backup: {obj.key}")
+            except Exception as e:
+                print(f"Failed to delete {obj.key}: {e}")
 #%%
 # Backing up
-for username in maphub_accounts:
-
-    # only retrieve content from specific folders 
-    folders = user.folders
-    for folder in folders:
-        if folder['title'] in ago_folder_name:
-            folder_title_os = folder['title'].lower()
-            item_list = []
-            for item in user.items(folder['title']):
-                if item['type'] in backup_types:
-                    item_list.append(item)
+def backup_items():
+    for username in maphub_accounts:
     
-            for result in item_list:
-                in_id = result['id']
-                if result['type'] in backup_types:
-                    print(f"backing up {in_id}")
-                    item = jsonItem(in_id)
-                    item.json_backup(folder_name=folder_title_os)
+        # only retrieve content from specific folders 
+        folders = user.folders
+        for folder in folders:
+            if folder['title'] in ago_folder_name:
+                folder_title_os = folder['title'].lower()
+                delete_old_backups(folder_title=folder_title_os)
+                
+                item_list = []
+                for item in user.items(folder['title']):
+                    if item['type'] in backup_types:
+                        item_list.append(item)
+        
+                for result in item_list:
+                    in_id = result['id']
+                    if result['type'] in backup_types:
+                        print(f"backing up {in_id}")
+                        item = jsonItem(in_id)
+                        item.json_backup(folder_name=folder_title_os)
+
+# execute the fucntions
+if __name__ == "__main__":
+    backup_items()
