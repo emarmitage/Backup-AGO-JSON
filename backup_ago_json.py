@@ -60,6 +60,7 @@ bucket_name = os.environ['OBJ_STORE_BUCKET']
 
 url = 'https://governmentofbc.maps.arcgis.com' # change to your url, whether maphub, geohub, or other
 gis = GIS(url, agol_username, agol_password)
+user = gis.users.get(agol_username)
 
 # connect to object storage
 boto_resource = boto3.resource(service_name='s3',
