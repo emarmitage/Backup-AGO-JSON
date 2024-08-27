@@ -43,14 +43,14 @@ import boto3
 # Configuration
 maphub_accounts = [
     os.environ['AGO_USER'],
-    ] # Accounts to backup from. Items must be shared with PX.SCGIS
+    ] # Accounts to backup from
 max_search = 100 # Maximum number of items
 
-backup_types = ["Web Map", "Web Experience"]
+backup_types = ["Web Map", "Web Experience"] # ago item types
 
-ago_folder_name = 'Badger Sightings Survey'
+ago_folder_names = ['Badger Sightings Survey'] # ago folder name
 
-retention_days = 14
+retention_days = 14 # number of days to keep backups
 
 #%%
 # Credentials
@@ -120,7 +120,7 @@ def backup_items():
         # only retrieve content from specific folders 
         folders = user.folders
         for folder in folders:
-            if folder['title'] in ago_folder_name:
+            if folder['title'] in ago_folder_names:
                 folder_title_os = folder['title'].lower()
                 delete_old_backups(folder_title=folder_title_os)
                 
