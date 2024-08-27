@@ -46,9 +46,9 @@ maphub_accounts = [
     ] # Accounts to backup from
 max_search = 100 # Maximum number of items
 
-backup_types = ["Web Map", "Web Experience"] # ago item types
+backup_types = ["Web Map", "Web Experience", "Web Experience Template"] # ago item types
 
-ago_folder_names = ['Badger Sightings Survey'] # ago folder name
+ago_folder_names = ['Badger Sightings Survey', 'Ecological Corridor Mapping'] # ago folder names
 
 retention_days = 14 # number of days to keep backups
 
