@@ -27,7 +27,7 @@ Aug 27, 2024
 -Selected backup types to only include experience builder & web maps
 -Added ability to backup from specific ago folders 
 -Save backup json to object storage
--Delete backups in object storage older than 7 days
+-Delete backups in object storage older than a set number of days
 '''
 
 
@@ -50,7 +50,7 @@ backup_types = ["Web Map", "Web Experience"]
 
 ago_folder_name = 'Badger Sightings Survey'
 
-retention_days = 7
+retention_days = 14
 
 #%%
 # Credentials
