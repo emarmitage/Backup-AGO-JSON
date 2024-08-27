@@ -110,6 +110,7 @@ def delete_old_backups(folder_title):
                 print(f"Deleted old backup: {obj.key}")
             except Exception as e:
                 print(f"Failed to delete {obj.key}: {e}")
+
 #%%
 # Backing up
 def backup_items():
