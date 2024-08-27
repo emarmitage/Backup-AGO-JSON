@@ -36,7 +36,6 @@ from arcgis.gis import GIS
 from datetime import datetime
 import json
 import os
-import shutil
 import boto3
 
 #%%
