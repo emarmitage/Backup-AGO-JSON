@@ -99,20 +99,20 @@ class jsonItem:
 # Backing up
 for username in maphub_accounts:
 
-    folders = gis.content.search(query=f'title:"{ago_folder_name}"', item_type='Folder')
-    if not folders:
-        print(f'Folder {ago_folder_name} not found')
-        continue
+    # only retrieve content from specific folders 
+    folders = user.folders
+    for folder in folders:
+        if folder['title'] == ago_folder_name:
 
-    ago_folder_id = folders[0].id
+            # get list of items that match the criteria
+            item_list = []
+            for i in gis.content.search(query="* AND \  owner:" + username, max_items=max_search):
+                item_list.append(i)
 
-    item_list = []
-    for i in gis.content.search(query="* AND \  owner:" + username, max_items=max_search):
-        item_list.append(i)
-
-    for result in item_list:
-        in_id = result.id
-        if result.type in backup_types:
-            print(f"backing up {in_id}")
-            item = jsonItem(in_id)
-            item.json_backup()
+            # backup item JSONs 
+            for result in item_list:
+                in_id = result.id
+                if result.type in backup_types:
+                    print(f"backing up {in_id}")
+                    item = jsonItem(in_id)
+                    item.json_backup()
