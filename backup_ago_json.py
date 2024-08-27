@@ -84,7 +84,7 @@ class jsonItem:
         self.ostore_path = f'ago_backups/{self.filename}'
 
         try:
-            s3_object = boto_resource.Object(self.bucket_name, self.ostore_path)
+            s3_object = boto_resource.Object(bucket_name, self.ostore_path)
             s3_object.put(
                 Body=json.dumps(self.prim_wm_json),
                 ContentType='application/json'
