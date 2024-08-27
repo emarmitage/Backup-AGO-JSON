@@ -50,7 +50,7 @@ backup_types = ["Web Map", "Web Experience"] # ago item types
 
 ago_folder_names = ['Badger Sightings Survey'] # ago folder name
 
-retention_days = 14 # number of days to keep backups
+retention_days = 0 # number of days to keep backups
 
 #%%
 # Credentials
