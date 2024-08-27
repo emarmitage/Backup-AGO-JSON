@@ -32,7 +32,7 @@ Aug 27, 2024
 
 #%%
 # Imports
-from arcgis.gis import GIS
+from arcgis.gis import GIS, User
 from datetime import datetime
 import json
 import os
