@@ -27,6 +27,7 @@ Aug 27, 2024
 -Selected backup types to only include experience builder & web maps
 -Added ability to backup from specific ago folders 
 -Save backup json to object storage
+-Delete backups in object storage older than 7 days
 '''
 
 
