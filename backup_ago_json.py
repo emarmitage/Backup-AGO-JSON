@@ -33,7 +33,7 @@ Aug 27, 2024
 #%%
 # Imports
 from arcgis.gis import GIS, User
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import os
 import boto3
