@@ -103,7 +103,7 @@ for username in maphub_accounts:
     # only retrieve content from specific folders 
     folders = user.folders
     for folder in folders:
-        if folder['title'] == ago_folder_name:
+        if folder['title'] in ago_folder_name:
             item_list = []
             for item in user.items(folder['title']):
                 if item['type'] in backup_types:
