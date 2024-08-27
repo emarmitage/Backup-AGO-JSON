@@ -47,4 +47,4 @@ jobs:
         conda init bash
         . ~/.bashrc
         conda activate backup_env
-        python3 badger_scripts/backup_ago_json.py
+        python3 backup_ago_json.py
