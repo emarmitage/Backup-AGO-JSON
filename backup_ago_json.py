@@ -103,6 +103,7 @@ for username in maphub_accounts:
     folders = user.folders
     for folder in folders:
         if folder['title'] in ago_folder_name:
+            folder_title_os = folder['title'].lower()
             item_list = []
             for item in user.items(folder['title']):
                 if item['type'] in backup_types:
@@ -113,18 +114,4 @@ for username in maphub_accounts:
                 if result['type'] in backup_types:
                     print(f"backing up {in_id}")
                     item = jsonItem(in_id)
-                    item.json_backup(folder_name=folder['title'])
-
-
-            # # get list of items that match the criteria
-            # item_list = []
-            # for i in gis.content.search(query="* AND \  owner:" + username, max_items=max_search):
-            #     item_list.append(i)
-
-            # # backup item JSONs 
-            # for result in item_list:
-            #     in_id = result.id
-            #     if result.type in backup_types:
-            #         print(f"backing up {in_id}")
-            #         item = jsonItem(in_id)
-            #         item.json_backup()
+                    item.json_backup(folder_name=folder_title_os)
