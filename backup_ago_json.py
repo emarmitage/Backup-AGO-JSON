@@ -33,7 +33,7 @@ Aug 27, 2024
 #%%
 # Imports
 from arcgis.gis import GIS, User
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import json
 import os
 import boto3
@@ -98,7 +98,8 @@ class jsonItem:
 
 # Delete older backups
 def delete_old_backups(folder_title):
-    threshold_date = datetime.now() - timedelta(days=retention_days)
+    now = datetime.now(timezone.utc)
+    threshold_date = now - timedelta(days=retention_days)
     bucket = boto_resource.Bucket(bucket_name)
 
     for obj in bucket.objects.filter(Prefix=f'ago_backups/{folder_title}'):
