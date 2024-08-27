@@ -58,7 +58,7 @@ obj_store_api_key = os.environ['SIES_OBJ_STORE_API_KEY']
 obj_store_host = os.environ['OBJ_STORE_HOST']
 bucket_name = os.environ['OBJ_STORE_BUCKET']
 
-url = 'http://governmentofbc.maps.arcgis.com' # change to your url, whether maphub, geohub, or other
+url = 'https://governmentofbc.maps.arcgis.com' # change to your url, whether maphub, geohub, or other
 gis = GIS(url, agol_username, agol_password)
 
 # connect to object storage
