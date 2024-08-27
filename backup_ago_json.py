@@ -80,7 +80,7 @@ class jsonItem:
     def json_backup(self): #backs up the json to the hardcoded path\
         today = datetime.today().strftime("%Y_%m_%d")
         item_title = self.prim_wm_item.title.lower()
-        self.filename = f"{item_title}_{self.primary_id}_{today}.json".replace(":", "-").replace('"', '').replace("|", "_").replace("/", "_").replace("\\", "_")
+        self.filename = f"{today}_{item_title}_{self.primary_id}.json".replace(":", "-").replace('"', '').replace("|", "_").replace("/", "_").replace("\\", "_")
         self.ostore_path = f'ago_backups/{self.filename}'
 
         try:
